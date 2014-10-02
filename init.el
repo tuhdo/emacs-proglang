@@ -25,6 +25,7 @@
     smartparens
     sml-mode
     projectile
+    helm-projectile
     volatile-highlights
     undo-tree
     zygospore))
