@@ -4,6 +4,7 @@
 (package-initialize)
 
 (setq inhibit-startup-message t)
+(setq default-directory "~/")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
