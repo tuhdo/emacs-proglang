@@ -22,7 +22,6 @@
     dtrt-indent
     ws-butler
     iedit
-    yasnippet
     smartparens
     sml-mode
     projectile
@@ -131,6 +130,13 @@
  gdb-show-main t
  )
 
+;; use zenburn as default theme
+(load-theme 'zenburn t)
+
+;; hl-sexp
+(require 'hl-sexp)
+(global-hl-sexp-mode 1)
+
 ;; Package: clean-aindent-mode
 (require 'clean-aindent-mode)
 (add-hook 'prog-mode-hook 'clean-aindent-mode)
@@ -142,10 +148,6 @@
 ;; Package: ws-butler
 (require 'ws-butler)
 (add-hook 'prog-mode-hook 'ws-butler-mode)
-
-;; Package: yasnippet
-(require 'yasnippet)
-(yas-global-mode 1)
 
 ;; Package: smartparens
 (require 'smartparens-config)
