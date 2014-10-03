@@ -4,8 +4,8 @@
 
 ;; Author: Syohei YOSHIDA <syohex@gmail.com>
 ;; URL: https://github.com/syohex/emacs-helm-gtags
-;; Version: 20141002.137
-;; X-Original-Version: 1.3.7
+;; Version: 20141002.557
+;; X-Original-Version: 1.3.8
 ;; Package-Requires: ((helm "1.5.6") (cl-lib "0.5"))
 
 ;; This program is free software; you can redistribute it and/or modify
