@@ -110,6 +110,18 @@
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
 
+;; Line number
+(require 'linum)
+(defun linum-on ()
+  "Disable linum in large buffer"
+  (if (or (minibufferp)
+          (> (buffer-size) 2000000))
+      (message "Buffer is too large for displaying line number")
+    (linum-mode 1)))
+(add-hook 'prog-mode-hook 'linum-on)
+;; (setq linum-format " %d ")
+
+
 ;; setup GDB
 (setq
  ;; use gdb-many-windows by default
