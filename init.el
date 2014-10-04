@@ -22,6 +22,7 @@
     ws-butler
     iedit
     smartparens
+    smartscan
     sml-mode
     projectile
     helm-projectile
@@ -52,12 +53,6 @@
 (require 'setup-editing)
 
 (windmove-default-keybindings)
-
-;; function-args
-(require 'function-args)
-(fa-config-default)
-(define-key c-mode-map  [(tab)] 'moo-complete)
-(define-key c++-mode-map  [(tab)] 'moo-complete)
 
 ;; company
 (require 'company)
@@ -125,6 +120,12 @@
 (add-hook 'lisp-mode-hook 'hl-sexp-mode)
 (add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
 (add-hook 'scheme-mode-hook 'hl-sexp-mode)
+
+;; hs-minor-mode
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
+;; smartscan
+(smartscan-mode 1)
 
 ;; Package: clean-aindent-mode
 (require 'clean-aindent-mode)
