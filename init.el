@@ -16,7 +16,6 @@
     helm
     helm-gtags
     helm-swoop
-    function-args
     clean-aindent-mode
     comment-dwim-2
     dtrt-indent
@@ -26,7 +25,6 @@
     sml-mode
     projectile
     helm-projectile
-    volatile-highlights
     undo-tree
     zygospore))
 
@@ -85,9 +83,7 @@
 ;; “python”: What Python developers use for extension modules
 ;; “java”: The default style for java-mode (see below)
 ;; “user”: When you want to define your own style
-(setq
- c-default-style "linux" ;; set style to "linux"
- )
+(setq c-default-style "linux")
 
 (global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
 
@@ -121,21 +117,14 @@
 ;; (setq linum-format " %d ")
 
 
-;; setup GDB
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
-
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t
- )
-
 ;; use zenburn as default theme
 (load-theme 'zenburn t)
 
 ;; hl-sexp
 (require 'hl-sexp)
-(global-hl-sexp-mode 1)
+(add-hook 'lisp-mode-hook 'hl-sexp-mode)
+(add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
+(add-hook 'scheme-mode-hook 'hl-sexp-mode)
 
 ;; Package: clean-aindent-mode
 (require 'clean-aindent-mode)

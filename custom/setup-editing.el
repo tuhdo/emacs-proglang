@@ -38,11 +38,6 @@
                                           newline-mark))
                             (whitespace-mode 1)))
 
-;; Package: volatile-highlights
-;; GROUP: Editing -> Volatile Highlights
-(require 'volatile-highlights)
-(volatile-highlights-mode t)
-
 ;; Package: clean-aindent-mode
 ;; GROUP: Editing -> Indent -> Clean Aindent
 (require 'clean-aindent-mode)
