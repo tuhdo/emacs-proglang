@@ -89,6 +89,18 @@
 (require 'duplicate-thing)
 (global-set-key (kbd "M-c") 'duplicate-thing)
 
+;; PACKAGE: aggressive-indent
+(require 'aggressive-indent)
+(defun agressive-indent-on ()
+  (if (< (buffer-size) 2000000)
+      (aggressive-indent-mode 1)))
+
+(add-to-list 'emacs-lisp-mode-hook 'agressive-indent-on)
+(add-to-list 'lisp-mode-hook 'agressive-indent-on)
+(add-to-list 'scheme-mode-hook 'agressive-indent-on)
+
+(add-to-list 'aggressive-indent-excluded-modes 'yaml-mode)
+
 ;; Customized functions
 (defun prelude-move-beginning-of-line (arg)
   "Move point back to indentation of beginning of line.

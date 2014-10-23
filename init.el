@@ -10,6 +10,7 @@
 
 (defconst demo-packages
   '(anzu
+    aggressive-indent
     company
     duplicate-thing
     ggtags
@@ -109,17 +110,11 @@
       (message "Buffer is too large for displaying line number")
     (linum-mode 1)))
 (add-hook 'prog-mode-hook 'linum-on)
-;; (setq linum-format " %d ")
+(setq linum-format " %d ")
 
 
 ;; use zenburn as default theme
 (load-theme 'zenburn t)
-
-;; hl-sexp
-(require 'hl-sexp)
-(add-hook 'lisp-mode-hook 'hl-sexp-mode)
-(add-hook 'emacs-lisp-mode-hook 'hl-sexp-mode)
-(add-hook 'scheme-mode-hook 'hl-sexp-mode)
 
 ;; hs-minor-mode
 (add-hook 'prog-mode-hook 'hs-minor-mode)
