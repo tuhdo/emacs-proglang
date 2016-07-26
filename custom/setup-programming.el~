@@ -1,0 +1,4 @@
+(use-package sml-mode)
+(use-package geiser)
+
+(provide 'setup-programming)

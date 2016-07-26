@@ -1,10 +1,12 @@
+(defalias 'yes-or-no-p 'y-or-n-p)
+(setq default-directory "~/")
 ;; GROUP: Editing -> Editing Basics
-
 (setq global-mark-ring-max 5000         ; increase mark ring to contains 5000 entries
       mark-ring-max 5000                ; increase kill ring to contains 5000 entries
-      mode-require-final-newline t      ; add a newline to end of file
-      tab-width 4                       ; default to 4 visible spaces to display a tab
       )
+
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
 
 (add-hook 'sh-mode-hook (lambda ()
                           (setq tab-width 4)))
@@ -38,68 +40,120 @@
                                           newline-mark))
                             (whitespace-mode 1)))
 
-;; Package: clean-aindent-mode
-;; GROUP: Editing -> Indent -> Clean Aindent
-(require 'clean-aindent-mode)
-(add-hook 'prog-mode-hook 'clean-aindent-mode)
+(blink-cursor-mode -1)
+(column-number-mode 1)
+(show-paren-mode 1)
+(windmove-default-keybindings)
+(electric-pair-mode)
 
+(global-set-key (kbd "RET") 'newline-and-indent)  ; automatically indent when press RET
+
+;; activate whitespace-mode to view all whitespace characters
+(global-set-key (kbd "C-c w") 'whitespace-mode)
+
+(global-set-key (kbd "<f5>") (lambda ()
+                               (interactive)
+                               (setq-local compilation-read-command nil)
+                               (call-interactively 'compile)))
+
+;; PACKAGE: auto-highlight-symbol
+(use-package auto-highlight-symbol
+  :init
+  (global-auto-highlight-symbol-mode)
+  :config
+  (global-set-key (kbd "C-c e") 'ahs-edit-mode)
+  (global-unset-key (kbd "C-x C-a"))
+  (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-p") 'ahs-backward)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-n") 'ahs-forward)
+  (setq ahs-idle-interval 1.0)
+  ;; (setq ahs-idle-timer nil)
+  ;; (ahs-start-timer)
+  (setq ahs-default-range 'ahs-range-whole-buffer)
+  (setq ahs-idle-interval 0.2)
+  (set-face-attribute 'ahs-definition-face
+                      nil
+                      :underline t
+                      :bold t
+                      :foreground nil
+                      :background nil
+                      :inherit 'region)
+  (set-face-attribute 'ahs-face
+                      nil
+                      :foreground nil
+                      :background nil
+                      :inherit 'region)
+  (set-face-attribute 'ahs-plugin-whole-buffer-face
+                      nil
+                      :foreground nil
+                      :background nil
+                      :inherit 'region)
+  (setq ahs-inhibit-face-list '(font-lock-comment-delimiter-face
+                                font-lock-comment-face
+                                font-lock-doc-face
+                                font-lock-doc-string-face
+                                font-lock-string-face)))
+
+;; PACKAGE: company
+(use-package company
+  :init
+  (add-hook 'after-init-hook 'global-company-mode))
 
 ;; PACKAGE: dtrt-indent
-(require 'dtrt-indent)
-(dtrt-indent-mode 1)
-(setq dtrt-indent-verbosity 0)
+(use-package dtrt-indent
+  :init
+  (dtrt-indent-mode 1)
+  (setq dtrt-indent-verbosity 0))
+
+;; PACKAGE: nlinum
+(use-package nlinum
+  :init
+  (add-hook 'prog-mode-hook 'nlinum-mode)
+  :config
+  (setq nlinum-format " %d"))
 
 ;; PACKAGE: ws-butler
-(require 'ws-butler)
-(add-hook 'c-mode-common-hook 'ws-butler-mode)
-(add-hook 'text-mode 'ws-butler-mode)
-(add-hook 'fundamental-mode 'ws-butler-mode)
+(use-package ws-butler
+  :init
+  (add-hook 'c-mode-common-hook 'ws-butler-mode)
+  (add-hook 'text-mode 'ws-butler-mode)
+  (add-hook 'fundamental-mode 'ws-butler-mode))
 
 ;; Package: undo-tree
 ;; GROUP: Editing -> Undo -> Undo Tree
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-;; PACKAGE: smartparens
-(require 'smartparens-config)
-(setq sp-base-key-bindings 'paredit)
-(setq sp-autoskip-closing-pair 'always)
-(setq sp-hybrid-kill-entire-symbol nil)
-(sp-use-paredit-bindings)
-
-(show-smartparens-global-mode +1)
-(smartparens-global-mode 1)
+(use-package undo-tree
+  :init
+  (global-undo-tree-mode))
 
 ;; PACKAGE: comment-dwim-2
 (global-set-key (kbd "M-;") 'comment-dwim-2)
 
 ;; PACKAGE: anzu
 ;; GROUP: Editing -> Matching -> Isearch -> Anzu
-(require 'anzu)
-(global-anzu-mode)
-(global-set-key (kbd "M-%") 'anzu-query-replace)
-(global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp)
+(use-package anzu
+  :init
+  (global-anzu-mode)
+  (global-set-key (kbd "M-%") 'anzu-query-replace)
+  (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp))
 
 ;; PACKAGE: iedit
-(setq iedit-toggle-key-default nil)
-(require 'iedit)
-(global-set-key (kbd "C-;") 'iedit-mode)
-
-;; PACKAGE: duplicate-thing
-(require 'duplicate-thing)
-(global-set-key (kbd "M-c") 'duplicate-thing)
+(use-package iedit
+  :init
+  (global-set-key (kbd "C-;") 'iedit-mode)
+  :config
+  (setq iedit-toggle-key-default nil))
 
 ;; PACKAGE: aggressive-indent
-(require 'aggressive-indent)
-(defun agressive-indent-on ()
-  (if (< (buffer-size) 2000000)
-      (aggressive-indent-mode 1)))
-
-(add-to-list 'emacs-lisp-mode-hook 'agressive-indent-on)
-(add-to-list 'lisp-mode-hook 'agressive-indent-on)
-(add-to-list 'scheme-mode-hook 'agressive-indent-on)
-
-(add-to-list 'aggressive-indent-excluded-modes 'yaml-mode)
+(use-package aggressive-indent
+  :init
+  (defun agressive-indent-on ()
+    (if (< (buffer-size) 2000000)
+        (aggressive-indent-mode 1)))
+  (add-to-list 'emacs-lisp-mode-hook 'agressive-indent-on)
+  (add-to-list 'lisp-mode-hook 'agressive-indent-on)
+  :config
+  (add-to-list 'aggressive-indent-excluded-modes 'yaml-mode))
 
 ;; Customized functions
 (defun prelude-move-beginning-of-line (arg)
@@ -148,7 +202,7 @@ line instead."
 ;; of next line
 (defadvice kill-line (before check-position activate)
   (if (member major-mode
-              '(emacs-lisp-mode scheme-mode lisp-mode
+              '(emacs-lisp-mode lisp-mode
                                 c-mode c++-mode objc-mode
                                 latex-mode plain-tex-mode))
       (if (and (eolp) (not (bolp)))
