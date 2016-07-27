@@ -120,6 +120,16 @@
   (add-hook 'text-mode 'ws-butler-mode)
   (add-hook 'fundamental-mode 'ws-butler-mode))
 
+;; PACKAGE: smooth-scrolling
+(use-package smooth-scrolling
+  :init
+  (setq smooth-scroll-margin 5
+        scroll-conservatively 101
+        scroll-preserve-screen-position t
+        auto-window-vscroll nil)
+  :config
+  (setq scroll-margin 5))
+
 ;; Package: undo-tree
 ;; GROUP: Editing -> Undo -> Undo Tree
 (use-package undo-tree

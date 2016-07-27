@@ -21,6 +21,8 @@
   (require 'setup-editing)
   (require 'setup-programming))
 
+(semantic-mode 1)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -28,7 +30,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (aggressive-indent iedit anzu undo-tree ws-butler nlinum dtrt-indent company auto-highlight-symbol helm-dash helm-gtags helm-descbinds helm-swoop helm-ag helm use-package))))
+    (smooth-scrolling smooth-scroll aggressive-indent iedit anzu undo-tree ws-butler nlinum dtrt-indent company auto-highlight-symbol helm-dash helm-gtags helm-descbinds helm-swoop helm-ag helm use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
